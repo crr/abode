@@ -10,39 +10,8 @@
     <p class="lead">While a majority of this site is hidden to non-residents, you can view basic information about our household here.</p>
 @else
     <h4>Welcome back, <b>{{ Auth::User()->name }}</b>.</h4>
-@endif
-</div>
-<div class="col-md-6">
-    <div class="card card-inverse" style="background-color: #222; border-color: #000;">
-        <div class="card-block">
-        <h4 class="card-title"><i class="fa fa-fire"></i> Thermostat
-        @if($info->current_state->ac == '1')
-        <span class="label label-success">On</span>
-        @else
-        <span class="label label-danger">Off</span>
-        @endif
-        </h4>
-    </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-            The house is currently <span class="label label-info">{{ round($info->current_state->temperature)}}º{{ $info->scale }}</span> with a humidity of <span class="label label-info">{{ round($info->current_state->humidity) }}</span>.
-            </li>
-            <li class="list-group-item">
-            The current target temperature is <span class="label label-info">{{ round($info->target->temperature) }}ºF</span> at the house.
-            </li>
-        </ul>
-    </div>
-    <div class="card card-inverse" style="background-color: #222; border-color: #000;">
-        <div class="card-block">
-        <h4 class="card-title"><i class="fa fa-home"></i> {{ $abode->getName() }}</h4>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                {{ $location->city }} is currently <span class="label label-info">{{ $location->outside_temperature }}ºF</span> degrees with a humidity of <span class="label label-info">{{ $location->outside_humidity }}</span>.
-            </li>
-        </ul>
-    </div>
-    @if (Auth::User())
+    <p class="lead">If you are a resident, some options for controlling the house are available below. If you are intended to have access please let the house owner know.</p>
+@if (Auth::User()->isResident())
     <div class="card card-inverse" style="background-color: #222; border-color: #000;">
         <div class="card-block">
         <h4 class="card-title" style="margin-bottom:10px;">Set temperature?</h4>
@@ -77,6 +46,38 @@
         </form>
         </div>
     </div>
-    @endif
+@endif
+@endif
+</div>
+<div class="col-md-6">
+    <div class="card card-inverse" style="background-color: #222; border-color: #000;">
+        <div class="card-block">
+        <h4 class="card-title"><i class="fa fa-fire"></i> Thermostat
+        @if($info->current_state->ac == '1')
+        <span class="label label-success">On</span>
+        @else
+        <span class="label label-danger">Off</span>
+        @endif
+        </h4>
+    </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+            The house is currently <span class="label label-info">{{ round($info->current_state->temperature)}}º{{ $info->scale }}</span> with a humidity of <span class="label label-info">{{ round($info->current_state->humidity) }}</span>.
+            </li>
+            <li class="list-group-item">
+            The current target temperature is <span class="label label-info">{{ round($info->target->temperature) }}ºF</span> at the house.
+            </li>
+        </ul>
+    </div>
+    <div class="card card-inverse" style="background-color: #222; border-color: #000;">
+        <div class="card-block">
+        <h4 class="card-title"><i class="fa fa-home"></i> {{ $abode->getName() }}</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                {{ $location->city }} is currently <span class="label label-info">{{ $location->outside_temperature }}ºF</span> degrees with a humidity of <span class="label label-info">{{ $location->outside_humidity }}</span>.
+            </li>
+        </ul>
+    </div>
 </div>
 @endsection

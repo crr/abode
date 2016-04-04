@@ -32,9 +32,16 @@
 <br>
 <div class="card card-inverse" style="background-color: #222; border-color: #000;">
   <div class="card-block">
-    <h4 class="card-title">All Tasks</h4>
+    <h4 class="card-title"><i class="fa fa-check"></i> All Tasks</h4>
   </div>
         <ul class="list-group list-group-flush">
+
+        @if(!count($alltasks))
+            <li class="list-group-item">
+                We're sorry, <b>{{ Auth::User()->name }}</b>. There are not currently any tasks.
+            </li>
+        @endif
+
             @foreach ($alltasks as $task)
                 <li class="list-group-item">
                     <span class="label label-info">{{ $task->user->name }}</span> {{ $task->name }}

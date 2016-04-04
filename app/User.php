@@ -32,4 +32,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
+
+    public function isResident()
+    {
+        return($this->rank > 1);
+    }
+
+    public function isAdmin()
+    {
+        return($this->rank > 2);
+    }
 }

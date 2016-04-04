@@ -8,5 +8,8 @@ class Abode {
     public function getBackground() {
         return env('ABODE_BACKGROUND', '');
     }
+    public function getNavBackground() {
+        return env('ABODE_NAVBACKGROUND', '');
+    }
 }
 ?>

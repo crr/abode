@@ -8,20 +8,21 @@
     <title>Corsair Abode</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700|Raleway" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel='stylesheet' type='text/css'>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Lato';
-            background: #111;
+            font-family: "Dosis", sans-serif;
+            background: url('{{ $abode->getBackground() }}') fixed #111;
             padding-top: 80px;
             margin-bottom: 40px;
         }
 
         p, h1, h2, h3, h4, .display-4, pre {
-            color: #FFF;
+            color: #F1F1F1;
+            text-shadow: 1px 2px 5px rgba(0,0,0,0.4);
         }
 
         .card-title {
@@ -36,7 +37,7 @@
             margin-right: 6px;
         }
         .navbar-brand {
-            font-family: "Raleway", sans-serif;
+            font-family: "Dosis", sans-serif;
             font-weight: 300;
             position: absolute;
             top: -15px;
@@ -45,7 +46,7 @@
         }
 
         .bg-primary {
-            background: url('{{ $abode->getBackground() }}') center center repeat rgba(2,117,216,0.7);
+            background: url('{{ $abode->getNavBackground() }}') center center repeat rgba(2,117,216,0.7) !important;
             border-bottom: 3px solid rgba(0,0,0,0.3);
         }
 
@@ -74,6 +75,7 @@
     @if (Auth::guest())
         <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link">Resident Login</a></li>
     @else
+    @if (Auth::User()->isResident())
         <li class="nav-item
         @if(Route::current()->getName() == 'tasks')
         active
@@ -81,6 +83,7 @@
         ">
           <a class="nav-link" href="/tasks">Tasks</a>
         </li>
+    @endif
         <li class="nav-item"><a href="{{ url('/logout') }}" class="nav-link">Logout</a></li>
     @endif
   </ul>
