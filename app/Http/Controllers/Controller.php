@@ -23,8 +23,4 @@ class Controller extends BaseController
 
         return redirect('/');
     }
-
-    public function receive(Request $request) {
-
-    }
 }
