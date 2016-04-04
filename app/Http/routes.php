@@ -33,6 +33,8 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     }]);
 
+    Route::get('/manage/users', 'Controller@listUsers');
+
     Route::get('/manage', 'ManageController@receive');
     Route::post('/manage', 'ManageController@receive');
     Route::get('/response', 'ManageController@receive');

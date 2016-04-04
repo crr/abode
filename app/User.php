@@ -42,4 +42,15 @@ class User extends Authenticatable
     {
         return($this->rank > 2);
     }
+
+    public static function getRankTitle($id) {
+        $ranks = array (
+              0   => 'Banned', // Permanently B&
+              1 => 'Individual', // Anybody that can register
+              2 => 'Resident', // Resident
+              3 => 'Owner' // Administator
+        );
+
+        return isset($ranks[$id]) ? $ranks[$id] : 'Member';
+    }
 }
