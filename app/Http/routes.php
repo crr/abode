@@ -30,14 +30,7 @@ use Nest\Nest;
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', ['as'=>'home', function () {
- 
-        $nest = new Nest();
-        $info = $nest->getDeviceInfo();
-        $location = $nest->getUserLocations();
-
-        return view('welcome')
-        ->with('info', $info)
-        ->with('location', $location[0]);
+        return view('welcome');
     }]);
 
     Route::get('/manage', 'ManageController@receive');

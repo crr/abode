@@ -8,14 +8,14 @@
     <title>Corsair Abode</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700|Lobster" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700|Raleway" rel='stylesheet' type='text/css'>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Lato';
-            background: #333;
+            background: #111;
             padding-top: 80px;
             margin-bottom: 40px;
         }
@@ -36,15 +36,16 @@
             margin-right: 6px;
         }
         .navbar-brand {
+            font-family: "Raleway", sans-serif;
             font-weight: 300;
             position: absolute;
             top: -15px;
             font-size: 50px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
         }
 
         .bg-primary {
-            background: url('http://bilge.thebluecorsair.com/art/blue%20corsiar%20couple.png') -190px -300px no-repeat;
+            background: url('{{ $abode->getBackground() }}') center center repeat rgba(2,117,216,0.7);
             border-bottom: 3px solid rgba(0,0,0,0.3);
         }
 
@@ -67,7 +68,7 @@
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
     <a class="navbar-brand" href="{{ url('/') }}">
-        Corsair Abode
+        {{ $abode->getName() }}
     </a>
   <ul class="nav navbar-nav pull-right">
     @if (Auth::guest())

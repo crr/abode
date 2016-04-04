@@ -6,7 +6,7 @@
 @endif
 <div class="col-md-6">
 @if (!Auth::User())
-    <h2>Welcome to the <b>Corsair Abode</b>.</h2>
+    <h2>Welcome to the <b>{{ $abode->getName() }}</b>.</h2>
     <p class="lead">While a majority of this site is hidden to non-residents, you can view basic information about our household here.</p>
 @else
     <h4>Welcome back, <b>{{ Auth::User()->name }}</b>.</h4>
@@ -34,7 +34,7 @@
     </div>
     <div class="card card-inverse" style="background-color: #222; border-color: #000;">
         <div class="card-block">
-        <h4 class="card-title"><i class="fa fa-home"></i> {{ $location->name }}</h4>
+        <h4 class="card-title"><i class="fa fa-home"></i> {{ $abode->getName() }}</h4>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">

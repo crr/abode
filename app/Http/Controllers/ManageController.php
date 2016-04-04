@@ -26,6 +26,8 @@ class ManageController extends Controller
 
     public function receive(Request $request) {
         $input = Input::all();
+        Cache::forget('nest.info');
+        Cache::forget('nest.location');
 
         if(!empty($input['temp'])) {
             $min = 60;
@@ -35,6 +37,8 @@ class ManageController extends Controller
                 $nest = new Nest();
                 $info = $nest->getDeviceInfo();
                 $location = $nest->getUserLocations();
+                Cache::put('nest.info', $info, 15);
+                Cache::put('nest.location', $location[0], 15);
                 $do = $nest->setTargetTemperatureMode(TARGET_TEMP_MODE_COOL, $value);
                 $response = "<i class='fa fa-check'></i> You have successfully set the temperature to <b>".$value."ºF</b> degrees.";
             }
@@ -47,6 +51,8 @@ class ManageController extends Controller
             $nest = new Nest();
             $info = $nest->getDeviceInfo();
             $location = $nest->getUserLocations();
+            Cache::put('nest.info', $info, 15);
+            Cache::put('nest.location', $location[0], 15);
             $nest->setFanModeOnWithTimer(FAN_TIMER_15M);
             $response = "<i class='fa fa-check'></i> You have successfully turned the fan on for <b>15 minutes</b>.";
         }
@@ -55,6 +61,8 @@ class ManageController extends Controller
             $nest = new Nest();
             $info = $nest->getDeviceInfo();
             $location = $nest->getUserLocations();
+            Cache::put('nest.info', $info, 15);
+            Cache::put('nest.location', $location[0], 15);
             $nest->cancelFanModeOnWithTimer();
 
             $response = "<i class='fa fa-check'></i> You have successfully turned the fan off.";
@@ -64,6 +72,8 @@ class ManageController extends Controller
             $nest = new Nest();
             $info = $nest->getDeviceInfo();
             $location = $nest->getUserLocations();
+            Cache::put('nest.info', $info, 15);
+            Cache::put('nest.location', $location[0], 15);
             $nest->turnOff();
             $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>off</b>.";
         }
@@ -72,6 +82,8 @@ class ManageController extends Controller
             $nest = new Nest();
             $info = $nest->getDeviceInfo();
             $location = $nest->getUserLocations();
+            Cache::put('nest.info', $info, 15);
+            Cache::put('nest.location', $location[0], 15);
             $nest->setTargetTemperatureMode(TARGET_TEMP_MODE_COOL, 70);
             $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>on</b> (and set to 70ºF).";
         }
@@ -81,8 +93,6 @@ class ManageController extends Controller
         }
 
             return view('welcome')
-            ->with('info', $info)
-            ->with('location', $location[0])
             ->with('response', $response);
     }
 }
