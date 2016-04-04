@@ -84,6 +84,9 @@
           <a class="nav-link" href="/tasks">Tasks</a>
         </li>
     @endif
+    @if (Auth::User()->isAdmin())
+        <li class="nav-item"><a class="nav-link" href="/manage/users">Residents</a></li>
+    @endif
         <li class="nav-item"><a href="{{ url('/logout') }}" class="nav-link">Logout</a></li>
     @endif
   </ul>
