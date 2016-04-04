@@ -55,9 +55,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => '127.0.0.1',
-            'database'  => 'tasks',
-            'username'  => 'tasks',
-            'password'  => 'tasks',
+            'database' => env('DB_DATABASE', 'tasks'),
+            'username' => env('DB_USERNAME', 'tasks'),
+            'password' => env('DB_PASSWORD', ''),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
