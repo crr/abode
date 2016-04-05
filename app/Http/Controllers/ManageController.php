@@ -117,10 +117,6 @@ class ManageController extends Controller
         }
 
         else {
-            $log = new Log;
-            $log->user_id = Auth::User()->id;
-            $log->action = "Attempted an invalid manage request.";
-            $log->save();
             return redirect('/');
         }
 
