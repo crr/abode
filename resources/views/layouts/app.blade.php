@@ -85,7 +85,8 @@
         </li>
     @endif
     @if (Auth::User()->isAdmin())
-        <li class="nav-item"><a class="nav-link" href="/manage/users">Residents</a></li>
+        <li class="nav-item"><a class="nav-link" href="/panel/users">Residents</a></li>
+        <li class="nav-item"><a class="nav-link" href="/panel/logs">Logs</a></li>
     @endif
         <li class="nav-item"><a href="{{ url('/logout') }}" class="nav-link">Logout</a></li>
     @endif

@@ -1,6 +1,8 @@
 <?php
 namespace Abode;
 
+use App\User;
+
 class Abode {
     public function getName() {
         return env('ABODE_NAME', 'Humble Abode');
@@ -13,6 +15,12 @@ class Abode {
     }
     public function getNavBackground() {
         return env('ABODE_NAVBACKGROUND', '');
+    }
+
+    //User Functions
+    public static function getUserName($input) {
+        $name = User::find($input)->name;
+        return $name;
     }
 }
 ?>
