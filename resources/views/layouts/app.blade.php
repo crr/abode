@@ -73,17 +73,9 @@
     </a>
   <ul class="nav navbar-nav pull-right">
     @if (Auth::guest())
-        <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link">Resident Login</a></li>
+        <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link">Resident/Guest Login</a></li>
     @else
-    @if (Auth::User()->isResident())
-        <li class="nav-item
-        @if(Route::current()->getName() == 'tasks')
-        active
-        @endif
-        ">
-          <a class="nav-link" href="/tasks">Tasks</a>
-        </li>
-    @endif
+        <li class="nav-item"><a class="nav-link" href="/tasks">Tasks</a></li>
     @if (Auth::User()->isAdmin())
         <li class="nav-item"><a class="nav-link" href="/panel/users">Residents</a></li>
         <li class="nav-item"><a class="nav-link" href="/panel/logs">Logs</a></li>

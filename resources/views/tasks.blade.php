@@ -6,12 +6,16 @@
 <div class="card card-inverse" style="background-color: #222; border-color: #000;">
   <div class="card-block">
     <h4 class="card-title">Tasks</h4>
+    @if(Auth::User()->isResident() || Auth::User()->isAdmin())
     <p class="card-text">You can add a task below that you'd like to be completed.</p>
     @include('common.errors')
     <form action="/task" method="POST" class="form-horizontal">
         {{ csrf_field() }}
                 <input type="text" name="name" id="task-name" class="form-control" value="{{ old('task') }}" placeholder="Type a task here.">
     </form>
+    @else
+    <p style="margin-bottom:0px;"><span class="label label-danger">Note:</span> You are unable to add tasks as you are <u>not a resident</u>, however you can still view them below.</p>
+    @endif
 </div>
   <ul class="list-group list-group-flush">
     @foreach ($tasks as $task)
@@ -54,7 +58,8 @@
                     </button>
                 </form>
                 @endif
-                    <span class="label label-info">{{ $task->user->name }}</span> {{ $task->name }}
+                    <span class="label label-info pull-right" style="font-size: 16px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($task->created_at))->diffForHumans() }}</span>
+                    <span class="label label-info" style="font-size: 16px;">{{ $task->user->name }}</span> {{ $task->name }}
                 </li>
             @endforeach
           </ul>
