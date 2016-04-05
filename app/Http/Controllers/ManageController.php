@@ -75,7 +75,7 @@ class ManageController extends Controller
             Cache::put('nest.info', $info, 15);
             Cache::put('nest.location', $location[0], 15);
             $nest->turnOff();
-            $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>off</b>.";
+            $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>off</b>. Refresh to see the changes.";
         }
 
         else if(!empty($input['on'])) {
@@ -85,7 +85,7 @@ class ManageController extends Controller
             Cache::put('nest.info', $info, 15);
             Cache::put('nest.location', $location[0], 15);
             $nest->setTargetTemperatureMode(TARGET_TEMP_MODE_COOL, 70);
-            $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>on</b> (and set to 70ºF).";
+            $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>on</b> (and set to 70ºF). Refresh to see the changes.";
         }
 
         else {
