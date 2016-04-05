@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Task;
+use App\Log;
+use Auth;
 use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
@@ -62,6 +64,11 @@ class TaskController extends Controller
             'name' => $request->name,
         ]);
 
+        $log = new Log;
+        $log->user_id = Auth::User()->id;
+        $log->action = "Created a task: ".$request->name."";
+        $log->save();
+
         return redirect('/tasks');
     }
 
@@ -75,6 +82,11 @@ class TaskController extends Controller
     public function destroy(Request $request, Task $task)
     {
         $this->authorize('destroy', $task);
+
+        $log = new Log;
+        $log->user_id = Auth::User()->id;
+        $log->action = "Deleted a task: ".$task->name."";
+        $log->save();
 
         $task->delete();
 

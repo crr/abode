@@ -33,6 +33,11 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
+
     public function isResident()
     {
         return($this->rank > 1);

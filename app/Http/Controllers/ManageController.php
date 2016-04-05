@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Input;
-use Nest\Nest;
 use Cache;
+use Auth;
+
+use Nest\Nest;
+use App\Log;
 
 class ManageController extends Controller
 {
@@ -41,6 +44,11 @@ class ManageController extends Controller
                 Cache::put('nest.location', $location[0], 15);
                 $do = $nest->setTargetTemperatureMode(TARGET_TEMP_MODE_COOL, $value);
                 $response = "<i class='fa fa-check'></i> You have successfully set the temperature to <b>".$value."ºF</b> degrees.";
+
+                $log = new Log;
+                $log->user_id = Auth::User()->id;
+                $log->action = "Set the temperature to ".$value."ºF degrees.";
+                $log->save();
             }
             else {
                 $response = "<i class='fa fa-times'></i> You did not choose a valid temperature within <b>60-75</b>.";
@@ -55,6 +63,11 @@ class ManageController extends Controller
             Cache::put('nest.location', $location[0], 15);
             $nest->setFanModeOnWithTimer(FAN_TIMER_15M);
             $response = "<i class='fa fa-check'></i> You have successfully turned the fan on for <b>15 minutes</b>.";
+
+            $log = new Log;
+            $log->user_id = Auth::User()->id;
+            $log->action = "Turned the fan on for 15 minutes.";
+            $log->save();
         }
 
         else if(!empty($input['fanoff'])) {
@@ -66,6 +79,11 @@ class ManageController extends Controller
             $nest->cancelFanModeOnWithTimer();
 
             $response = "<i class='fa fa-check'></i> You have successfully turned the fan off.";
+
+            $log = new Log;
+            $log->user_id = Auth::User()->id;
+            $log->action = "Turned the fan off.";
+            $log->save();
         }
 
         else if(!empty($input['off'])) {
@@ -76,6 +94,11 @@ class ManageController extends Controller
             Cache::put('nest.location', $location[0], 15);
             $nest->turnOff();
             $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>off</b>. Refresh to see the changes.";
+
+            $log = new Log;
+            $log->user_id = Auth::User()->id;
+            $log->action = "Turned the thermostat off.";
+            $log->save();
         }
 
         else if(!empty($input['on'])) {
@@ -86,9 +109,18 @@ class ManageController extends Controller
             Cache::put('nest.location', $location[0], 15);
             $nest->setTargetTemperatureMode(TARGET_TEMP_MODE_COOL, 70);
             $response = "<i class='fa fa-check'></i> You have successfully turned the thermostat <b>on</b> (and set to 70ºF). Refresh to see the changes.";
+
+            $log = new Log;
+            $log->user_id = Auth::User()->id;
+            $log->action = "Turned the thermostat on, and set to 70ºF.";
+            $log->save();
         }
 
         else {
+            $log = new Log;
+            $log->user_id = Auth::User()->id;
+            $log->action = "Attempted an invalid manage request.";
+            $log->save();
             return redirect('/');
         }
 
