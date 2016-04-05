@@ -6,6 +6,11 @@
     <h4 class="card-title">Logs</h4>
   </div>
   <ul class="list-group list-group-flush">
+    @if (count($logs) < 1)
+      <li class="list-group-item">
+        <b>There are currently no actions logged!</b> <span class="text-muted">You should go bug your residents to use the site.</span>
+      </li>
+    @endif
     @foreach ($logs as $log)
         <li class="list-group-item">
             <span class="label label-info" style="font-size: 16px;margin-right: 5px;"> {{ $abode->getUserName($log->user_id) }}</span> {{ $log->action }} <span class="label label-info pull-right" style="font-size: 16px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($log->created_at))->diffForHumans() }}</span><br>
