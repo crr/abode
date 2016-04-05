@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Task;
 use App\Log;
 use Auth;
+use Abode\Abode;
 use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
@@ -81,11 +82,13 @@ class TaskController extends Controller
      */
     public function destroy(Request $request, Task $task)
     {
-        $this->authorize('destroy', $task);
+        if(!Auth::User()->isAdmin()) {
+            $this->authorize('destroy', $task);
+        }
 
         $log = new Log;
         $log->user_id = Auth::User()->id;
-        $log->action = "Deleted a task: ".$task->name."";
+        $log->action = "Deleted a task: ".$task->name." (written by ".Abode::getUserName($task->user_id).")";
         $log->save();
 
         $task->delete();

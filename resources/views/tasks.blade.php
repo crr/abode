@@ -44,6 +44,16 @@
 
             @foreach ($alltasks as $task)
                 <li class="list-group-item">
+                @if (Auth::User()->isAdmin())
+                <form action="/task/{{ $task->id }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+
+                    <button type="submit" class="btn btn-danger-outline btn-sm pull-right">
+                        <i class="fa fa-btn fa-trash"></i>Delete
+                    </button>
+                </form>
+                @endif
                     <span class="label label-info">{{ $task->user->name }}</span> {{ $task->name }}
                 </li>
             @endforeach
