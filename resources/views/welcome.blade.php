@@ -50,25 +50,16 @@
 @endif
 </div>
 <div class="col-md-6">
-
-@if (Auth::User() && Auth::User()->isResident())
     <div class="card card-inverse" style="background-color: #222; border-color: #000;">
         <div class="card-block">
-        <h4 class="card-title"><i class="fa fa-check"></i> Tasks <a href="/tasks" class="btn btn-sm btn-info-outline pull-right">View Tasks</a></h4>
-    </div>
+        <h4 class="card-title"><i class="fa fa-home"></i> {{ $abode->getName() }}</h4>
+        </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                @if (count(Auth::User()->tasks) < 1)
-                <p style="margin-bottom:5px">You have not added any tasks yet.</p>
-                <a href="/tasks" class="btn btn-sm btn-info-outline btn-block">Add one?</a>
-                @else
-                You have a total of <b class="label label-info">{{ count(Auth::User()->tasks) }} </b> tasks uncompleted.
-                @endif
+                {{ $location->city }} is currently <span class="label label-info">{{ $location->outside_temperature }}ºF</span> degrees with a humidity of <span class="label label-info">{{ $location->outside_humidity }}</span>.
             </li>
         </ul>
     </div>
-@endif
-
     <div class="card card-inverse" style="background-color: #222; border-color: #000;">
         <div class="card-block">
         <h4 class="card-title"><i class="fa fa-fire"></i> Thermostat
@@ -88,15 +79,22 @@
             </li>
         </ul>
     </div>
+@if (Auth::User() && Auth::User()->isResident())
     <div class="card card-inverse" style="background-color: #222; border-color: #000;">
         <div class="card-block">
-        <h4 class="card-title"><i class="fa fa-home"></i> {{ $abode->getName() }}</h4>
-        </div>
+        <h4 class="card-title"><i class="fa fa-check"></i> Tasks</h4>
+    </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                {{ $location->city }} is currently <span class="label label-info">{{ $location->outside_temperature }}ºF</span> degrees with a humidity of <span class="label label-info">{{ $location->outside_humidity }}</span>.
+                @if (count(Auth::User()->tasks) < 1)
+                <p style="margin-bottom:5px">You have not added any tasks yet.</p>
+                <a href="/tasks" class="btn btn-sm btn-info-outline btn-block">Add one?</a>
+                @else
+                You have a total of <b class="label label-info">{{ count(Auth::User()->tasks) }} </b> tasks uncompleted.
+                @endif
             </li>
         </ul>
     </div>
+@endif
 </div>
 @endsection

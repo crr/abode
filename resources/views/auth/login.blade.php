@@ -5,7 +5,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="card card-inverse" style="background-color: #222; border-color: #000;">
                 <div class="card-block">
-                    <h4 class="card-title">Resident Login</h4>
+                    <h4 class="card-title">Resident/Guest Login</h4>
                     <p class="card-text">To access more information and control the house, please login below.</p>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
@@ -50,13 +50,14 @@
 
                         <div class="form-group row">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary-outline">
                                     <i class="fa fa-btn fa-sign-in"></i>Login
                                 </button>
 
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
                             </div>
                         </div>
+                                                        <a class="btn btn-link btn-block" href="{{ url('/register') }}">Need an account? Register here.</a>
                     </form>
             </div>
         </div>

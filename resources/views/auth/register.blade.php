@@ -5,8 +5,8 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="card card-inverse" style="background-color: #222; border-color: #000;">
                 <div class="card-block">
-                <h4 class="card-title">Register</h4>
-                <p>You can register for an account below.</p>
+                <h4 class="card-title">Create an Account</h4>
+                <p>You can register for an account below. Please note, upon registration you will have a <u>Guest</u> account. You will need to request to be changed to a resident by the house owner.</p>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}

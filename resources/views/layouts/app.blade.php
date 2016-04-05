@@ -73,7 +73,7 @@
     </a>
   <ul class="nav navbar-nav pull-right">
     @if (Auth::guest())
-        <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link">Resident/Guest Login</a></li>
+        <li class="nav-item"><a href="/login" class="nav-link">Resident/Guest Login</a></li>
     @else
         <li class="nav-item"><a class="nav-link" href="/tasks">Tasks</a></li>
     @if (Auth::User()->isAdmin())
